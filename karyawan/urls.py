@@ -1,9 +1,11 @@
-from django.urls import path
-from .views import KaryawanList, KaryawanDetail, PenggajianList, PenggajianDetail
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import KaryawanViewSet, PenggajianViewSet
+
+router = DefaultRouter()
+router.register(r'karyawan', KaryawanViewSet)
+router.register(r'penggajian', PenggajianViewSet)
 
 urlpatterns = [
-    path('karyawan/', KaryawanList.as_view()),
-    path('karyawan/<int:pk>/', KaryawanDetail.as_view()),
-    path('penggajian/', PenggajianList.as_view()),
-    path('penggajian/<int:pk>/', PenggajianDetail.as_view()),
+    path('', include(router.urls)),
 ]
